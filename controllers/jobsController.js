@@ -1,17 +1,17 @@
 import Job from "../models/Job.js";
 import { StatusCodes } from "http-status-codes";
 import { BadRequestError, NotFoundError, UnauthenticatedError } from "../errors/index.js";
-// import checkPermissions from "../utils/checkPermissions.js";
 import mongoose from "mongoose";
 import moment from "moment";
 
 const createJob = async (req, res) => {
   const { position, company } = req.body;
-
+  console.log(req.body, req.user.userId);
   if (!position || !company) {
     throw new BadRequestError("Please provide all values");
   }
   req.body.createdBy = req.user.userId;
+  req.body.userId = req.user.userId;
   const job = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json({ job });
 };
@@ -64,7 +64,6 @@ const getAllJobs = async (req, res) => {
 
   const totalJobs = await Job.countDocuments(queryObject);
   const numOfPages = Math.ceil(totalJobs / limit);
-  // checkPermissions(req.user, user._id);
   res.status(StatusCodes.OK).json({ jobs, totalJobs, numOfPages });
 };
 const updateJob = async (req, res) => {
@@ -79,9 +78,6 @@ const updateJob = async (req, res) => {
   if (!job) {
     throw new NotFoundError(`No job with id :${jobId}`);
   }
-  // check permissions
-
-  // checkPermissions(req.user, job.createdBy);
 
   const updatedJob = await Job.findOneAndUpdate({ _id: jobId }, req.body, {
     new: true,
@@ -98,8 +94,6 @@ const deleteJob = async (req, res) => {
   if (!job) {
     throw new NotFoundError(`No job with id :${jobId}`);
   }
-
-  // checkPermissions(req.user, job.createdBy);
 
   await job.remove();
 
