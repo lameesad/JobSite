@@ -7,9 +7,7 @@ import Job from "../models/Job.js";
 
 const applyJob = async (req, res) => {
   const { job: jobId } = req.body;
-
   const isValidJob = await Job.findOne({ _id: jobId });
-
   if (!isValidJob) {
     throw new CustomError.NotFoundError(`No Job with id : ${jobId}`);
   }
@@ -18,9 +16,9 @@ const applyJob = async (req, res) => {
     job: jobId,
     user: req.user.userId,
   });
-
+  console.log("AlreadySubmitteddd", alreadySubmitted);
   if (alreadySubmitted) {
-    throw new CustomError.BadRequestError("Already submitted Application for this job");
+    throw new BadRequestError("Already submitted Application for this job");
   }
 
   req.body.user = req.user.userId;

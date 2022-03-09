@@ -5,6 +5,7 @@ dotenv.config();
 import "express-async-errors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -38,10 +39,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // app.use(express.static(path.resolve(__dirname, './client/build')))
 
 app.use(express.json());
+app.use(cors());
 app.use(cookieParser(process.env.JWT_SECRET));
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET , PUT , POST , DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, x-requested-with");
+  next(); // Important
+});
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
