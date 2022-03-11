@@ -1,19 +1,8 @@
-<div class="register-container my-5">
+<div class="login-container my-5">
   <form class="py-5 px-3" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
     <div class="imgcontainer"></div>
-    <h3 class="text-center">Register</h3>
+    <h3 class="text-center">Login</h3>
     <div class="form-register">
-      <label for="uname">Username</label>
-      <input
-        class="display-block"
-        type="text"
-        name="username"
-        [(ngModel)]="form.username"
-        required
-        placeholder="Enter Username"
-        #username="ngModel"
-      />
-      <div class="alert alert-danger" role="alert" *ngIf="username.errors && f.submitted">Username is required!</div>
       <label for="uname">Email</label>
       <input type="email" name="email" [(ngModel)]="form.email" required placeholder="Enter Email" #email="ngModel" />
       <div class="alert alert-danger" role="alert" *ngIf="email.errors && f.submitted">Email is required!</div>
@@ -32,12 +21,15 @@
         <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
       </div>
       <div class="d-flex justify-content-center">
-        <button *ngIf="!isLoading" type="submit">Register</button>
+        <button *ngIf="!isLoading" type="submit">Login</button>
       </div>
-      <div class="form-group mt-2">
+      <div class="form-group">
         <div class="alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">{{ errorMessage }}</div>
       </div>
-
+      <p class="not-member">
+        Not a member yet?
+        <a type="button" (click)="open('register')" class="member-btn">Register</a>
+      </p>
       <div *ngIf="isLoading" class="loader"></div>
     </div>
   </form>

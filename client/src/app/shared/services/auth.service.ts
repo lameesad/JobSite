@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AuthData } from "../models/auth-data.model";
+import { Login, Register } from "../models/auth-data.model";
+import { Observable } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -18,9 +19,16 @@ export class AuthService {
       .set("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
   }
 
-  public register(email: string, name: string, password: string) {
-    const authData: AuthData = { name: name, email: email, password: password };
-    return this.http.post(this.baseUrl + "/v1/auth/register", JSON.stringify(authData), {
+  public register(email: string, name: string, password: string): Observable<any> {
+    const registerData: Register = { name: name, email: email, password: password };
+    return this.http.post(this.baseUrl + "/v1/auth/register", JSON.stringify(registerData), {
+      headers: this.headers,
+    });
+  }
+
+  public login(email: string, password: string): Observable<any> {
+    const loginData: Login = { email: email, password: password };
+    return this.http.post(this.baseUrl + "/v1/auth/login", JSON.stringify(loginData), {
       headers: this.headers,
     });
   }

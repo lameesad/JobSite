@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
   display: grid;
   -webkit-box-align: center;
   justify-content: center;
@@ -56,5 +56,14 @@
 
   .alert {
     margin-top: 10px;
+  }
+
+  .not-member {
+    margin: 1rem 0px 0px;
+    text-align: center;
+
+    a {
+      color: var(--primary-400);
+    }
   }
 }
