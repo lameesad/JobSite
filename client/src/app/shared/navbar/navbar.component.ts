@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { MenuItem } from "primeng/api";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
   public items: MenuItem[] = [];
@@ -14,20 +14,19 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-        label: 'Home',
-        icon: 'pi pi-fw pi-home',
-        command: () => this.router.navigate(['home']),
-      },
-      {
-        label: 'Jobs',
-        icon: 'pi pi-fw pi-list',
-        command: () => this.router.navigate(['jobs']),
+        label: "User Name",
+        icon: "pi pi-fw pi-home",
+        // command: () => this.router.navigate(["home"]),
       },
     ];
   }
 
   public isLoggedIn(): boolean {
-    if (window.location.href.indexOf('login') === -1) {
+    if (
+      window.location.href.indexOf("login") === -1 &&
+      window.location.href.indexOf("register") === -1 &&
+      window.location.href.indexOf("home") === -1
+    ) {
       return false;
     } else {
       return true;

@@ -2,8 +2,8 @@ import { UnauthenticatedError, UnauthorizedError } from "../errors/index.js";
 import { isTokenValid } from "../utils/index.js";
 
 const authenticateUser = async (req, res, next) => {
-  const token = req.signedCookies.token;
-
+  // const token = req.signedCookies.token;
+  const token = req.headers.authorization.split(" ")[1];
   if (!token) {
     throw new UnauthenticatedError("Authentication Invalid");
   }

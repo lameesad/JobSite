@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/shared/services/auth.service";
+import { TokenService } from "src/app/shared/services/token.service";
 
 @Component({
   selector: "app-login",
@@ -18,7 +19,12 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   isLoading: boolean = false;
   role: string = "";
-  constructor(private authService: AuthService, private router: Router) {}
+  token: string = "";
+  constructor(
+    private authService: AuthService,
+    private tokenService: TokenService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -32,7 +38,10 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe(
       (response) => {
         this.role = response.user.role;
+        this.tokenService.saveToken(response.token);
+        // console.log(this.tokenService.getToken());
         localStorage.setItem("role", this.role);
+        // localStorage.setItem("token", this.token);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         if (this.role === "user") {

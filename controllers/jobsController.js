@@ -15,11 +15,12 @@ const createJob = async (req, res) => {
   const job = await Job.create(req.body);
   res.status(StatusCodes.CREATED).json({ job });
 };
+
 const getAllJobs = async (req, res) => {
   const { status, jobType, sort, search } = req.query;
 
   const queryObject = {
-    createdBy: req.user.userId,
+    // createdBy: req.user.userId,
   };
   // add stuff based on condition
 
@@ -58,7 +59,7 @@ const getAllJobs = async (req, res) => {
   const limit = Number(req.query.limit) || 10;
   const skip = (page - 1) * limit;
 
-  result = result.skip(skip).limit(limit);
+  // result = result.skip(skip).limit(limit);
 
   const jobs = await result;
 
@@ -69,7 +70,7 @@ const getAllJobs = async (req, res) => {
 const updateJob = async (req, res) => {
   const { id: jobId } = req.params;
   const { company, position } = req.body;
-
+  console.log(jobId);
   if (!position || !company) {
     throw new BadRequestError("Please provide all values");
   }
@@ -86,6 +87,7 @@ const updateJob = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ updatedJob });
 };
+
 const deleteJob = async (req, res) => {
   const { id: jobId } = req.params;
 
@@ -99,8 +101,12 @@ const deleteJob = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ msg: "Success! Job removed" });
 };
+
 const showStats = async (req, res) => {
-  let stats = await Job.aggregate([{ $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } }, { $group: { _id: "$status", count: { $sum: 1 } } }]);
+  let stats = await Job.aggregate([
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
+    { $group: { _id: "$status", count: { $sum: 1 } } },
+  ]);
   stats = stats.reduce((acc, curr) => {
     const { _id: title, count } = curr;
     acc[title] = count;

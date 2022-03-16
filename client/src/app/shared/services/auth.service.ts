@@ -16,6 +16,7 @@ export class AuthService {
       .set("Authorization", "Bearer ")
       .set("Accept", "application/json")
       .set("Access-Control-Allow-Origin", "*")
+      .set("Access-Control-Allow-Credentials", "true")
       .set("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
   }
 

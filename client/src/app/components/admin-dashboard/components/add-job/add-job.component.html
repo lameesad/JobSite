@@ -1,0 +1,35 @@
+<div class="dashboard-page mt-5">
+  <section class="sc-egiyK cugjah">
+    <form class="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+      <h3>add job</h3>
+      <div class="form-center">
+        <div class="form-row">
+          <label for="position" class="form-label">position</label
+          ><input
+            type="text"
+            [(ngModel)]="form.position"
+            #position="ngModel"
+            name="position"
+            class="form-input"
+            value=""
+          />
+        </div>
+        <div class="form-row">
+          <label for="company" class="form-label">company</label
+          ><input
+            type="text"
+            [(ngModel)]="form.company"
+            #company="ngModel"
+            name="company"
+            class="form-input"
+            value=""
+          />
+        </div>
+        <div class="btn-container">
+          <button type="submit" class="btn btn-block submit-btn">submit</button
+          ><button class="btn btn-block clear-btn">clear</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

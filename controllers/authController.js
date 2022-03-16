@@ -19,9 +19,11 @@ const register = async (req, res) => {
   const role = isFirstAccount ? "admin" : "user";
 
   const user = await User.create({ name, email, password, role });
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, user: tokenUser });
-  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+  const tokenUser = { name: user.name, userId: user._id, role: user.role };
+  const token = user.createJWT();
+  res.status(StatusCodes.CREATED).json({ user: tokenUser, token });
+  // attachCookiesToResponse({ res, user: tokenUser });
+  // res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 
 const login = async (req, res) => {
@@ -38,9 +40,12 @@ const login = async (req, res) => {
   if (!isPasswordCorrect) {
     throw new UnauthenticatedError("Invalid Credentials");
   }
+  const token = user.createJWT();
+  user.password = undefined;
   const tokenUser = { name: user.name, userId: user._id, role: user.role };
-  attachCookiesToResponse({ res, user: tokenUser });
-  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+  res.status(StatusCodes.OK).json({ user: tokenUser, token });
+  // attachCookiesToResponse({ res, user: tokenUser });
+  // res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 const updateUser = async (req, res) => {
   const { email, name, lastName, location } = req.body;

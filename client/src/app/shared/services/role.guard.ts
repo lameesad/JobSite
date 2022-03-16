@@ -15,7 +15,7 @@ export class RoleGuardGuard implements CanActivate {
     if (localStorage.getItem("role") === "admin") {
       return true;
     } else {
-      this.router.navigate(["user-dashboard"], { replaceUrl: true });
+      this.router.navigate(["home"], { replaceUrl: true });
       return false;
     }
   }

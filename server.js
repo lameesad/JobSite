@@ -44,17 +44,10 @@ app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET , PUT , POST , DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, x-requested-with");
-  next(); // Important
-});
-
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/jobs", authenticateUser, jobsRouter);
-app.use("/api/v1/job", authenticateUser, appRouter);
+app.use("/api/v1/jobs", jobsRouter);
+app.use("/api/v1/job", appRouter);
 
 // only when ready to deploy
 // app.get('*', (req, res) => {

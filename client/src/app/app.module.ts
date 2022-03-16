@@ -8,7 +8,7 @@ import { HomeComponent } from "./components/home/home.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { MenubarModule } from "primeng/menubar";
 import { SlideMenuModule } from "primeng/slidemenu";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { LoginComponent } from "./components/login/login.component";
 import { UserDashboardComponent } from "./components/user-dashboard/user-dashboard.component";
@@ -16,6 +16,11 @@ import { AdminDashboardComponent } from "./components/admin-dashboard/admin-dash
 import { UserSidebarComponent } from "./components/user-dashboard/components/user-sidebar/user-sidebar.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ButtonModule } from "primeng/button";
+import { MenuModule } from "primeng/menu";
+import { AllJobsComponent } from "./components/admin-dashboard/components/all-jobs/all-jobs.component";
+import { AuthInterceptor } from "./shared/interceptors/auth.interceptor";
+import { APP_BASE_HREF } from "@angular/common";
+import { AddJobComponent } from "./components/admin-dashboard/components/add-job/add-job.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +32,8 @@ import { ButtonModule } from "primeng/button";
     UserDashboardComponent,
     AdminDashboardComponent,
     UserSidebarComponent,
+    AllJobsComponent,
+    AddJobComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,8 +44,12 @@ import { ButtonModule } from "primeng/button";
     ButtonModule,
     HttpClientModule,
     FormsModule,
+    MenuModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: APP_BASE_HREF, useValue: "/" },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
