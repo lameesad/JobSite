@@ -1,0 +1,15 @@
+<div class="">
+  <section class="">
+    <h5>{{ allJobApplicants.length }} Users found</h5>
+    <div class="jobs" *ngFor="let user of allJobApplicants">
+      <article class="single-job mb-3">
+        <header>
+          <div class="main-icon">O</div>
+          <div class="info">
+            <h5>{{ user.user.name }}</h5>
+          </div>
+        </header>
+      </article>
+    </div>
+  </section>
+</div>

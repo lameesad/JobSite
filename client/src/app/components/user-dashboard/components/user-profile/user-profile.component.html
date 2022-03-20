@@ -1,0 +1,47 @@
+<div class="dashboard-page mt-5">
+  <section class="profile">
+    <form class="form" name="form" enctype="multipart/form-data">
+      <h3>profile</h3>
+      <div class="form-center">
+        <div class="form-row">
+          <label for="name" class="form-label">name</label
+          ><input type="text" name="name" class="form-input" value="" [formControl]="nameControl" />
+        </div>
+        <div class="form-row">
+          <label for="lastName" class="form-label">last name</label
+          ><input
+            type="text"
+            name="lastName"
+            class="form-input"
+            value=""
+            [formControl]="lastNameControl"
+          />
+        </div>
+        <div class="form-row">
+          <label for="email" class="form-label">email</label
+          ><input
+            type="email"
+            name="email"
+            class="form-input"
+            value=""
+            [formControl]="emailControl"
+          />
+        </div>
+        <div class="form-row">
+          <label for="formFile" class="form-label">CV</label>
+          <input
+            class="form-control form-input"
+            type="file"
+            id="formFile"
+            (change)="onfilePicked($event)"
+          />
+        </div>
+        <!-- <div class="form-row">
+          <label for="cv" class="form-label">cv</label
+          ><input type="text" name="cv" class="form-input" value="" [formControl]="cvControl" />
+        </div> -->
+        <button class="btn btn-block" (click)="updateUser()" type="submit">save changes</button>
+      </div>
+    </form>
+  </section>
+</div>

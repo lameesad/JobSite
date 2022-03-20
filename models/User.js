@@ -48,13 +48,40 @@ const UserSchema = new mongoose.Schema({
   },
   cv: {
     type: String,
-    trim: true,
-    maxlength: 50,
-    default: "my cv",
+    default: "/uploads/hussam suleiman.jpg",
   },
-  workExp: [{ jobTitle: String, company: String, dateStarted: Date, industry: ["Hospitality", "Engineering", "Others"] }],
+  jobTitle: {
+    type: String,
+    default: "Frontend",
+  },
+  company: {
+    type: String,
+    default: "SKyloov",
+  },
+  dateStarted: {
+    type: Date,
+    default: Date.now(),
+  },
+  industry: {
+    type: String,
+    default: "Hospitality",
+  },
+  highestLevel: {
+    type: String,
+    default: "Masters",
+  },
+  school: {
+    type: String,
+    default: "Masters",
+  },
 
-  education: [{ highestLevel: String, school: String, dateCompleted: Date, industry: ["Hospitality", "Engineering", "Others"] }],
+  education: [
+    {
+      highestLevel: String,
+      school: String,
+      dateCompleted: Date,
+    },
+  ],
 
   skills: {
     type: String,

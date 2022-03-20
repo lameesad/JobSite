@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   isLoading: boolean = false;
   role: string = "";
+  name: string = "";
+  id: string = "";
   token: string = "";
   constructor(
     private authService: AuthService,
@@ -38,10 +40,12 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe(
       (response) => {
         this.role = response.user.role;
+        this.name = response.user.name;
+        this.id = response.user.userId;
         this.tokenService.saveToken(response.token);
-        // console.log(this.tokenService.getToken());
         localStorage.setItem("role", this.role);
-        // localStorage.setItem("token", this.token);
+        localStorage.setItem("name", this.name);
+        localStorage.setItem("id", this.id);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         if (this.role === "user") {

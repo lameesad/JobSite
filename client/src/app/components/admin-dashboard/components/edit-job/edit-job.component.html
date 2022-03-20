@@ -1,0 +1,32 @@
+<div class="dashboard-page mt-5">
+  <section class="sc-egiyK cugjah">
+    <form class="form" (click)="onSubmit()">
+      <h3>edit job</h3>
+      <div class="form-center">
+        <div class="form-row">
+          <label for="position" class="form-label">position</label
+          ><input
+            type="text"
+            name="position"
+            class="form-input"
+            value=""
+            [formControl]="positionControl"
+          />
+        </div>
+        <div class="form-row">
+          <label for="company" class="form-label">company</label
+          ><input
+            type="text"
+            name="company"
+            class="form-input"
+            value=""
+            [formControl]="companyControl"
+          />
+        </div>
+        <div class="btn-container">
+          <button type="submit" (click)="editJob()" class="btn btn-block submit-btn">submit</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

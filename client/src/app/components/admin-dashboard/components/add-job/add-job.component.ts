@@ -19,8 +19,7 @@ export class AddJobComponent implements OnInit {
   onSubmit(): void {
     const { company, position } = this.form;
     localStorage.getItem("role");
-    this.jobService.addJob(company, position).subscribe((response) => {
-      console.log(response);
-    });
+    this.jobService.addJob(company, position).subscribe((response) => {});
+    this.router.navigate(["all-jobs"]);
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MenuItem } from "primeng/api";
+import { TokenService } from "../services/token.service";
 
 @Component({
   selector: "app-navbar",
@@ -9,7 +10,8 @@ import { MenuItem } from "primeng/api";
 })
 export class NavbarComponent implements OnInit {
   public items: MenuItem[] = [];
-  constructor(private router: Router) {}
+  public name = localStorage.getItem("name");
+  constructor(private router: Router, private tokenService: TokenService) {}
 
   ngOnInit(): void {
     this.items = [
@@ -34,8 +36,8 @@ export class NavbarComponent implements OnInit {
   }
 
   public logout() {
-    // this.tokenStorage.signOut();
-    // this.router.navigate(['login'], {replaceUrl: true});
+    this.tokenService.signOut();
+    this.router.navigate(["login"], { replaceUrl: true });
   }
 
   public navigate(path: any) {

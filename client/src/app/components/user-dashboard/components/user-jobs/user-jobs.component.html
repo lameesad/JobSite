@@ -1,6 +1,7 @@
 <div class="">
   <section class="search-container">
     <form class="form">
+      <h4>search form</h4>
       <div class="form-center">
         <div class="form-row">
           <label for="search" class="form-label">search</label
@@ -10,9 +11,37 @@
             class="form-input"
             value=""
             [formControl]="searchControl"
-            (ngModelChange)="search()"
           />
         </div>
+        <div class="form-row">
+          <label for="searchStatus" class="form-label">status</label
+          ><select name="searchStatus" class="form-select">
+            <option value="all">all</option>
+            <option value="interview">interview</option>
+            <option value="declined">declined</option>
+            <option value="pending">pending</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="searchType" class="form-label">type</label
+          ><select name="searchType" class="form-select">
+            <option value="all">all</option>
+            <option value="full-time">full-time</option>
+            <option value="part-time">part-time</option>
+            <option value="remote">remote</option>
+            <option value="internship">internship</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="sort" class="form-label">sort</label
+          ><select name="sort" class="form-select">
+            <option value="latest">latest</option>
+            <option value="oldest">oldest</option>
+            <option value="a-z">a-z</option>
+            <option value="z-a">z-a</option>
+          </select>
+        </div>
+        <button class="btn btn-block btn-danger">clear filters</button>
       </div>
     </form>
   </section>
@@ -81,13 +110,7 @@
           </div>
           <footer>
             <div class="actions">
-              <button type="button" (click)="ViewJobApplicants(job._id)" class="btn edit-btn">
-                View
-              </button>
-              <a class="btn edit-btn" (click)="editJob(job._id)">Edit</a>
-              <button type="button" (click)="deleteJob(job._id)" class="btn delete-btn">
-                Delete
-              </button>
+              <button type="button" (click)="applyJob(job._id)" class="btn">Apply</button>
             </div>
           </footer>
         </div>

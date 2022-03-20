@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import "express-async-errors";
 import morgan from "morgan";
+import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
@@ -40,6 +41,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
+app.use(express.static("public"));
+app.use(fileUpload());
 app.use(helmet());
 app.use(xss());
 app.use(mongoSanitize());

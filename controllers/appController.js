@@ -27,11 +27,24 @@ const applyJob = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ application });
 };
 
+// const getJobApplicants = async (req, res) => {
+//   const { jobId: jobId } = req.params;
+//   const applications = await Application.find({ job: jobId }).populate({
+//     path: "user",
+//     select: "userId name",
+//   });
+
+//   res.status(StatusCodes.OK).json({ applications, count: applications.length });
+// };
+
 const getJobApplicants = async (req, res) => {
-  const applications = await Application.find({}).populate({
-    path: "job user",
-    select: "userId name",
-  });
+  const { jobId: jobId } = req.params;
+
+  const applications = await Application.find({ job: jobId });
+
+  if (!applications) {
+    throw new CustomError.NotFoundError(`No application with id ${jobId}`);
+  }
 
   res.status(StatusCodes.OK).json({ applications, count: applications.length });
 };

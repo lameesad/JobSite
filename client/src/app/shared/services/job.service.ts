@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -18,8 +18,11 @@ export class JobService {
       .set("Access-Control-Allow-Methods", "GET,POST,OPTIONS,DELETE,PUT");
   }
 
-  public getAllJobs(): Observable<any> {
-    return this.http.get(this.baseUrl + "/v1/jobs", {
+  public getAllJobs(search: string): Observable<any> {
+    const params = new HttpParams().set("search", search + "");
+
+    return this.http.get(this.baseUrl + "/v1/jobs/", {
+      params: params,
       headers: this.headers,
     });
   }
@@ -44,5 +47,23 @@ export class JobService {
     return this.http.delete(this.baseUrl + "/v1/jobs/" + jobId, {
       headers: this.headers,
     });
+  }
+
+  public getJobApplicants(jobId: string): Observable<any> {
+    const job = { job: jobId };
+    return this.http.get(this.baseUrl + "/v1/job/" + jobId + "/applications", {
+      headers: this.headers,
+    });
+  }
+
+  public applyJob(jobId: string): Observable<any> {
+    const job = { job: jobId };
+    return this.http.post(
+      this.baseUrl + "/v1/job/" + jobId + "/applications",
+      JSON.stringify(job),
+      {
+        headers: this.headers,
+      }
+    );
   }
 }

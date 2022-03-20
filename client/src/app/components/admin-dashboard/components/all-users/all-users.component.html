@@ -1,0 +1,106 @@
+<div class="">
+  <section class="search-container">
+    <form class="form">
+      <h4>search user</h4>
+      <div class="form-center">
+        <div class="form-row">
+          <label for="search" class="form-label">search</label
+          ><input
+            type="text"
+            name="search"
+            class="form-input"
+            value=""
+            [formControl]="searchControl"
+            (ngModelChange)="search()"
+          />
+        </div>
+        <div class="form-row">
+          <label for="searchEmail" class="form-label">email</label>
+          <input
+            type="text"
+            name="email"
+            class="form-input"
+            value=""
+            [formControl]="emailControl"
+            (ngModelChange)="search()"
+          />
+        </div>
+        <div class="form-row">
+          <label for="searchJob" class="form-label">job</label>
+          <input
+            type="text"
+            name="email"
+            class="form-input"
+            value=""
+            [formControl]="jobControl"
+            (ngModelChange)="search()"
+          />
+        </div>
+        <div class="form-row">
+          <label for="searchEducation" class="form-label">education</label>
+          <input
+            type="text"
+            name="education"
+            class="form-input"
+            value=""
+            [formControl]="highestLevelControl"
+            (ngModelChange)="search()"
+          />
+        </div>
+        <div class="form-row">
+          <label for="searchSkill" class="form-label">skill</label>
+          <input
+            type="text"
+            name="skill"
+            class="form-input"
+            value=""
+            [formControl]="skillControl"
+            (ngModelChange)="search()"
+          />
+        </div>
+        <div class="form-row">
+          <label for="industry" class="form-label">industry</label
+          ><select
+            name="sort"
+            class="form-select"
+            [formControl]="industryControl"
+            (ngModelChange)="search()"
+          >
+            <option value="hospitality">Hospitality</option>
+            <option value="engineering">Engineering</option>
+            <option value="others">Others</option>
+          </select>
+        </div>
+        <!-- <button class="btn btn-block btn-danger">clear filters</button> -->
+      </div>
+    </form>
+  </section>
+  <section class="">
+    <h5>{{ allUsers.length }} Users found</h5>
+    <div class="jobs" *ngFor="let user of allUsers">
+      <article class="single-job mb-3">
+        <header>
+          <div class="main-icon">O</div>
+          <div class="info">
+            <h5>{{ user.name }} {{ user.lastName }}</h5>
+            <p>{{ user.email }}</p>
+          </div>
+        </header>
+        <div class="content">
+          <div class="content-center">
+            <div class="sc-eCImPb bQtjko">
+              <span class="text">Job Title: {{ user.jobTitle }}</span>
+            </div>
+            <div class="sc-eCImPb bQtjko">
+              <span class="text">Education: {{ user.highestLevel }}</span>
+            </div>
+            <div class="sc-eCImPb bQtjko">
+              <span class="text">Skills: {{ user.skills }}</span>
+            </div>
+            <div class="status pending">{{ user.industry }}</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</div>
