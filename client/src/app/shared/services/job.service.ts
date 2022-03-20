@@ -28,7 +28,6 @@ export class JobService {
   }
 
   public addJob(company: string, position: string): Observable<any> {
-    console.log("job service token", localStorage.getItem("token"));
     const addJobData = { company: company, position: position };
     return this.http.post(this.baseUrl + "/v1/jobs", JSON.stringify(addJobData), {
       headers: this.headers,
@@ -36,7 +35,6 @@ export class JobService {
   }
 
   public updateJob(jobId: string, company: string, position: string): Observable<any> {
-    console.log("job service token", localStorage.getItem("token"));
     const updateJobData = { company: company, position: position };
     return this.http.patch(this.baseUrl + "/v1/jobs/" + jobId + JSON.stringify(updateJobData), {
       headers: this.headers,
