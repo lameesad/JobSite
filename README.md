@@ -7,7 +7,6 @@ Job Site using MEAN stack - Angular Nodejs Express Mongodb
 npm run install-dependencies
 ```
 
-- rename .env.temp to .env
 - setup values for - MONGO_URL, JWT_SECRET, JWT_LIFETIME
 
 ```sh
